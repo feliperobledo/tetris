@@ -7,3 +7,6 @@ source ./scripts/shared_scripts.sh
 fetch_brew_dependency "wget"
 fetch_brew_dependency "cmake"
 fetch_brew_dependency "ninja"
+
+# Install SDL
+fetch_third_party_lib_sdl
