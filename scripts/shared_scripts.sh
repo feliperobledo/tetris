@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROJECT_ROOT=`git rev-parse --show-toplevel`
-PROVIDERS_DIR_NAME='providers'
+PROVIDERS_DIR_NAME='src/providers'
 
 # These software versions should come from a resource file
 SDL_VERSION='2.0.14'
@@ -107,12 +107,22 @@ fetch_os_specific_providers() {
 fetch_macOS_frameworks() {
     # macOS requires from Framework installation via .dmg files
     # Make sure there is a Frameworks folder in the current directory.
-    fetch_macOS_dmg
+    fetch_macOS_SDL_dmg
 }
 
-fetch_macOS_dmg() {
+fetch_macOS_SDL_dmg() {
+    FRAMEWORKS_ROOT=$PROJECT_ROOT/$PROVIDERS_DIR_NAME/Frameworks
+    INCLUES_ROOT=$PROJECT_ROOT/$PROVIDERS_DIR_NAME/include
+
+    pushd $INCLUES_ROOT
+        if [ -d "SDL" ]; then
+            echo "SDL header files already exists..."
+            return
+        fi
+    popd
+
     # If required, download the SDL2 MacOS Framework into the Frameworks folder.
-    pushd $PROJECT_ROOT/$PROVIDERS_DIR_NAME/Frameworks
+    pushd $FRAMEWORKS_ROOT
         # Check that there isn't already a framework for SDL
         if [ ! -d "SDL" ]; then
             # Download the .dmg file from the SDL2 download site.
@@ -135,8 +145,22 @@ fetch_macOS_dmg() {
                 echo "Code signing SDL2.framework ..."
                 codesign -f -s - SDL2
             popd
+
         else
-            echo "SDL already exists ..."
+            echo "SDL Framework already downloaded..."
+        fi
+
+    popd
+
+    pushd $INCLUES_ROOT
+        if [ ! -d "SDL" ]; then
+            echo "Creating SDL header includes..."
+            mkdir SDL
+
+            echo "Copying headers from framework..."
+            cp -r $FRAMEWORKS_ROOT/SDL/Headers SDL
+        else
+            echo "SDL header files already exist..."
         fi
     popd
 }
