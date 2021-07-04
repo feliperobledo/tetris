@@ -10,3 +10,6 @@ fetch_brew_dependency "ninja"
 
 # Install SDL
 fetch_third_party_lib_sdl
+
+# Install OS specific resources
+fetch_os_specific_providers

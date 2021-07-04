@@ -3,6 +3,7 @@
 PROJECT_ROOT=`git rev-parse --show-toplevel`
 PROVIDERS_DIR_NAME='providers'
 
+# These software versions should come from a resource file
 SDL_VERSION='2.0.14'
 
 # Alias the 'pushd' command and have it send its output to the abyss ...
@@ -39,15 +40,30 @@ fetch_brew_dependency() {
 }
 
 # If nothing has created the third-party folder yet, then we'll create it.
-verify_third_party_folder_exists() {
+verify_providers_folder_exists() {
     # Navigate into the 'root' folder from our current location.
     pushd $PROJECT_ROOT
         # Check if there is no third-party folder ...
         if [ ! -d $PROVIDERS_DIR_NAME ]; then
             # ... and if there isn't, create it.
             mkdir $PROVIDERS_DIR_NAME
-            mkdir $PROVIDERS_DIR_NAME/include
-            mkdir $PROVIDERS_DIR_NAME/lib
+
+        fi
+
+        if [ ! -d "$PROVIDERS_DIR_NAME/include" ]; then
+            mkdir "$PROVIDERS_DIR_NAME/include"
+        fi
+
+        if [ ! -d "$PROVIDERS_DIR_NAME/lib" ]; then
+            mkdir "$PROVIDERS_DIR_NAME/lib"
+        fi
+
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            if [ ! -d "$PROVIDERS_DIR_NAME/Frameworks" ]; then
+                # macOS requires from Framework installation via .dmg files
+                mkdir "$PROVIDERS_DIR_NAME/Frameworks"
+                echo 'Test created Frameworks folder'
+            fi
         fi
     popd
 }
@@ -55,7 +71,7 @@ verify_third_party_folder_exists() {
 # If required, download the SDL library source into the third-party folder.
 fetch_third_party_lib_sdl() {
     # Make sure we actually have a third-party folder first.
-    verify_third_party_folder_exists
+   verify_providers_folder_exists
 
     # Navigate into the third-party folder two levels below us.
     pushd $PROJECT_ROOT/$PROVIDERS_DIR_NAME/lib
@@ -76,6 +92,51 @@ fetch_third_party_lib_sdl() {
             rm SDL2-$SDL_VERSION.zip
         else
             echo "SDL library already exists in third party folder."
+        fi
+    popd
+}
+
+fetch_os_specific_providers() {
+   verify_providers_folder_exists
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        fetch_macOS_frameworks
+    fi
+}
+
+fetch_macOS_frameworks() {
+    # macOS requires from Framework installation via .dmg files
+    # Make sure there is a Frameworks folder in the current directory.
+    fetch_macOS_dmg
+}
+
+fetch_macOS_dmg() {
+    # If required, download the SDL2 MacOS Framework into the Frameworks folder.
+    pushd $PROJECT_ROOT/$PROVIDERS_DIR_NAME/Frameworks
+        # Check that there isn't already a framework for SDL
+        if [ ! -d "SDL" ]; then
+            # Download the .dmg file from the SDL2 download site.
+            wget https://www.libsdl.org/release/SDL2-$SDL_VERSION.dmg
+
+            echo "Mounting DMG file ..."
+            hdiutil attach SDL2-$SDL_VERSION.dmg
+
+            echo "Copying SDL2.framework from DMG file into the current folder ..."
+            cp -R /Volumes/SDL2/SDL2.framework SDL
+
+            echo "Unmounting DMG file ..."
+            hdiutil detach /Volumes/SDL2
+
+            echo "Deleting DMG file ..."
+            rm SDL2-$SDL_VERSION.dmg
+
+            # Navigate into the SDL2.framework folder.
+            pushd SDL
+                echo "Code signing SDL2.framework ..."
+                codesign -f -s - SDL2
+            popd
+        else
+            echo "SDL already exists ..."
         fi
     popd
 }
