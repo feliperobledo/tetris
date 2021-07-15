@@ -76,7 +76,7 @@ fetch_third_party_lib_sdl() {
     # Navigate into the third-party folder two levels below us.
     pushd $PROJECT_ROOT/$PROVIDERS_DIR_NAME/lib
         # Check to see if there is not yet an SDL folder.
-        if [ ! -d "SDL" ]; then
+        if [ ! -d "SDL2" ]; then
             echo "Fetching SDL (SDL2: $SDL_VERSION) ..."
 
             # Download the SDL2 source zip file
@@ -86,7 +86,7 @@ fetch_third_party_lib_sdl() {
             unzip -q SDL2-$SDL_VERSION.zip
 
             # Rename the SDL2-2.0.9 folder to SDL
-            mv SDL2-$SDL_VERSION SDL
+            mv SDL2-$SDL_VERSION SDL2
 
             # Clean up by deleting the zip file that we downloaded.
             rm SDL2-$SDL_VERSION.zip
@@ -113,9 +113,10 @@ fetch_macOS_frameworks() {
 fetch_macOS_SDL_dmg() {
     FRAMEWORKS_ROOT=$PROJECT_ROOT/$PROVIDERS_DIR_NAME/Frameworks
     INCLUES_ROOT=$PROJECT_ROOT/$PROVIDERS_DIR_NAME/include
+    SDL_DIR_NAME="SDL2"
 
     pushd $INCLUES_ROOT
-        if [ -d "SDL" ]; then
+        if [ -d $SDL_DIR_NAME ]; then
             echo "SDL header files already exists..."
             return
         fi
@@ -124,7 +125,7 @@ fetch_macOS_SDL_dmg() {
     # If required, download the SDL2 MacOS Framework into the Frameworks folder.
     pushd $FRAMEWORKS_ROOT
         # Check that there isn't already a framework for SDL
-        if [ ! -d "SDL" ]; then
+        if [ ! -d "$SDL_DIR_NAME.framework" ]; then
             # Download the .dmg file from the SDL2 download site.
             wget https://www.libsdl.org/release/SDL2-$SDL_VERSION.dmg
 
@@ -132,7 +133,7 @@ fetch_macOS_SDL_dmg() {
             hdiutil attach SDL2-$SDL_VERSION.dmg
 
             echo "Copying SDL2.framework from DMG file into the current folder ..."
-            cp -R /Volumes/SDL2/SDL2.framework SDL
+            cp -R /Volumes/SDL2/SDL2.framework .
 
             echo "Unmounting DMG file ..."
             hdiutil detach /Volumes/SDL2
@@ -141,7 +142,7 @@ fetch_macOS_SDL_dmg() {
             rm SDL2-$SDL_VERSION.dmg
 
             # Navigate into the SDL2.framework folder.
-            pushd SDL
+            pushd "$SDL_DIR_NAME.framework"
                 echo "Code signing SDL2.framework ..."
                 codesign -f -s - SDL2
             popd
@@ -153,14 +154,21 @@ fetch_macOS_SDL_dmg() {
     popd
 
     pushd $INCLUES_ROOT
-        if [ ! -d "SDL" ]; then
+        if [ ! -d $SDL_DIR_NAME ]; then
             echo "Creating SDL header includes..."
-            mkdir SDL
+            mkdir $SDL_DIR_NAME
 
             echo "Copying headers from framework..."
-            cp -r $FRAMEWORKS_ROOT/SDL/Headers SDL
+            cp -r $FRAMEWORKS_ROOT/$SDL_DIR_NAME.framework/Headers SDL2
         else
             echo "SDL header files already exist..."
         fi
     popd
+}
+
+verify_build_folder_exists() {
+    echo "Checking for build folder ..."
+    if [ ! -d build ]; then
+        mkdir build
+    fi
 }
