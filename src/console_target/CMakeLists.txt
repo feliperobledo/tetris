@@ -40,5 +40,5 @@ set_target_properties(
     tetris
     PROPERTIES
     LINK_FLAGS
-    "-F${THIRD_PARTY_DIR}/Framework -framework SDL2 -framework OpenGL"
+    "-F../${THIRD_PARTY_DIR}/Frameworks -framework SDL2 -framework OpenGL"
 )
