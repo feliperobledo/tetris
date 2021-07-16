@@ -17,3 +17,6 @@ _deps
 .ninja_deps
 .ninja_log
 build.ninja
+
+# directories with the executable
+out/
