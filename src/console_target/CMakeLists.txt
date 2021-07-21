@@ -6,6 +6,9 @@ cmake_minimum_required(VERSION 3.4.1)
 # Set the project name
 # set(PROJECT_NAME "tetris")
 
+# Auto-generate the compile_commands.json file used by ccls for autocompletion
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Let's declare our compiler flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fexceptions")
 
