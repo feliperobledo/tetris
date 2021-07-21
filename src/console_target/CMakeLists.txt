@@ -45,3 +45,11 @@ set_target_properties(
     LINK_FLAGS
     "-F../${THIRD_PARTY_DIR}/Frameworks -framework SDL2 -framework OpenGL"
 )
+
+# Start a job after build is successful
+add_custom_command(
+    TARGET tetris
+    POST_BUILD
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    COMMAND ./cmake-post-build.sh
+)
