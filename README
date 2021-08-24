@@ -1,0 +1,26 @@
+# Tetris
+
+This is an implementation of tetris that runs in the browser using emscripten and as a standalone window based application.
+
+### TODO
+- [ ] Learn how to use cmake to do the bare minimum compilation
+- [ ] Learn how to use Vulkan
+
+### System Requirements
+
+1. `bash`
+1. `make`
+1. `cmake`
+
+### Building
+
+#### From the CLI
+
+1. Open your terminal of choice that supports bash
+1. Run `./build.sh console`
+
+### Resources
+
+- [This](https://marcelbraghetto.github.io/a-simple-triangle/2019/03/02/part-02/) is a blog of the same project type I'm looking to set-up.
+- [SDL + Vulkan](https://docs.tizen.org/application/native/guides/graphics/vulkan/)
+- [Gently simmer into emscripten](https://blog.scottlogic.com/2014/03/12/native-code-emscripten-webgl-simmer-gently.html)
