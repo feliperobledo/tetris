@@ -13,8 +13,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fexceptions")
 
 # We create a couple of properties/variables that refer to our 3rd party libs & shared code
-set(THIRD_PARTY_DIR "../providers")
-set(MAIN_SOURCE_DIR "../core")
+set(THIRD_PARTY_DIR "../../src/providers")
+set(MAIN_SOURCE_DIR "../../src/core")
 
 # We tell cmake where do we want to output our binary
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/out)

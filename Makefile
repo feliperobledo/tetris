@@ -1,0 +1,2 @@
+console:
+	./build.sh console
