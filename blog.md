@@ -2,6 +2,17 @@
 
 This space is intended for me to talk about my daily progress.
 
+## August 24, 2021
+
+I changed the project structure so that build targets and artifacts happen outside of the source folder.
+
+I also added a thin Makefile at the root of the repo. This Makefile has very simple commands that I can run from my editor to clean, build
+and run the console application.
+
+I was also looking into how to get breakpoints to work. I found [this](https://www.reddit.com/r/neovim/comments/9myvqx/neovim_debugger/)
+subreddit about the topic. That let me to [nvim-gdb](https://github.com/sakhnik/nvim-gdb), but I haven't been successful about making it
+work.
+
 ## July 20, 2021
 
 Started looking into configuring `neovim` + `coc` so I could get autocompletion in C++ projects.
