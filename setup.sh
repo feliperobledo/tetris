@@ -1,15 +1,11 @@
 #!/bin/bash
 
-# Include the shared scripts from the parent folder.
-source ./scripts/shared_scripts.sh
+# Include our shared scripts
+. scripts/shared_scripts.sh
 
-# Ask Homebrew to fetch our required programs
-fetch_brew_dependency "wget"
-fetch_brew_dependency "cmake"
-fetch_brew_dependency "ninja"
+# The first param is the build target name
+TARGET=$1
 
-# Install SDL
-fetch_third_party_lib_sdl
-
-# Install OS specific resources
-fetch_os_specific_providers
+pushd targets/$1
+    ./setup.sh
+popd

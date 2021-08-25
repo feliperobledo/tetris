@@ -1,10 +1,13 @@
-console:
+console-setup:
+	./setup.sh console
+
+console-build:
 	./build.sh console
 
-clean-console:
+console-clean:
 	rm -rf targets/**/out targets/**/build
 
-run-console: clean-console console
+console-run: console-setup console-clean console-build
 	./targets/console/out/tetris
 
-clean-all: clean-console
+clean-all: console-clean
