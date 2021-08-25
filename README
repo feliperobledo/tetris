@@ -3,8 +3,16 @@
 This is an implementation of tetris that runs in the browser using emscripten and as a standalone window based application.
 
 ### TODO
+
+#### Development Features
+
+- [ ] Figure out how to put breakpoints with nvim
+
+#### Learn-checklist
+
 - [ ] Learn how to use cmake to do the bare minimum compilation
 - [ ] Learn how to use Vulkan
+- [ ] Learn how to bind javascript to webassembly
 
 ### System Requirements
 
