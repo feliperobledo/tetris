@@ -1,0 +1,38 @@
+name: Tetris
+
+options:
+  bundleIdPrefix: https://github.com/feliperobledo
+  createIntermediateGroups: true
+  usesTabs: false
+  indentWidth: 4
+  tabWidth: 4
+  deploymentTarget:
+    macOS: "11.3.1"
+
+settings:
+  CLANG_CXX_LANGUAGE_STANDARD: c++17
+  CLANG_CXX_LIBRARY: libc++
+  GCC_C_LANGUAGE_STANDARD: c11
+  CLANG_WARN_DOCUMENTATION_COMMENTS: false
+
+targets:
+  Tetris:
+    type: application
+    platform: macOS
+    info:
+      path: Generated/Info.plist
+    entitlements:
+      path: Generated/app.entitlements
+    sources:
+      - ../../src/core
+    settings:
+      HEADER_SEARCH_PATHS:
+        - ../../src/providers/include/SDL2/Headers
+      LIBRARY_SEARCH_PATHS:
+        - $(inherited)
+        - $(PROJECT_DIR)
+        - $(PROJECT_DIR)/Frameworks
+    dependencies:
+      - framework: ../../src/providers/Frameworks/SDL2.framework
+        embed: true
+      - sdk: OpenGL.framework

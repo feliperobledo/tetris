@@ -20,3 +20,10 @@ build.ninja
 
 # directories with the executable
 out/
+
+# We don't want personal xcode project files
+*.xcodeproj
+Generated
+DerivedData
+Frameworks
+Source

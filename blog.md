@@ -2,6 +2,17 @@
 
 This space is intended for me to talk about my daily progress.
 
+## August 25, 2021
+
+Picking up trying to generate the XCode project. I am trying to identify where in the `project.yml` I have an error.
+
+Figured out the problem. Turns out that the `fetch_os_specific_providers` bash helper was doing an early return that bypassed
+the `popd` command, meaning that we were pushing a path but not popping it from the stack. Then the `xcodegen` executable was
+trying to find a `project.yml` in there.
+
+After fixing the above problem and debugging my SDL2 Framework path in the `project.yml`, I finally got the whole flow to work. I got
+the console app built and run from XCode!
+
 ## August 24, 2021
 
 I changed the project structure so that build targets and artifacts happen outside of the source folder.
@@ -12,6 +23,10 @@ and run the console application.
 I was also looking into how to get breakpoints to work. I found [this](https://www.reddit.com/r/neovim/comments/9myvqx/neovim_debugger/)
 subreddit about the topic. That let me to [nvim-gdb](https://github.com/sakhnik/nvim-gdb), but I haven't been successful about making it
 work.
+
+Started reading about how to generate our XCode project, and found out about [xcodegen](https://github.com/yonaskolb/XcodeGen). We use it
+so that we can continuously generate the project file instead of using xcode to drive the creation of project. By inverting this generation,
+the project configuration will have no differences across multiple developers.
 
 ## July 20, 2021
 
