@@ -115,12 +115,11 @@ fetch_macOS_SDL_dmg() {
     INCLUES_ROOT=$PROJECT_ROOT/$PROVIDERS_DIR_NAME/include
     SDL_DIR_NAME="SDL2"
 
-    pushd $INCLUES_ROOT
-        if [ -d $SDL_DIR_NAME ]; then
-            echo "SDL header files already exists..."
-            return
-        fi
-    popd
+    TARGET=$INCLUES_ROOT/$SDL_DIR_NAME
+    if [ -d $TARGET ]; then
+        echo "SDL header files already exists at $TARGET"
+        return
+    fi
 
     # If required, download the SDL2 MacOS Framework into the Frameworks folder.
     pushd $FRAMEWORKS_ROOT
@@ -150,7 +149,6 @@ fetch_macOS_SDL_dmg() {
         else
             echo "SDL Framework already downloaded..."
         fi
-
     popd
 
     pushd $INCLUES_ROOT
