@@ -27,3 +27,6 @@ Generated
 DerivedData
 Frameworks
 Source
+
+# We don't want artifacts from ios
+targets/ios/Libs/*

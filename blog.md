@@ -2,6 +2,21 @@
 
 This space is intended for me to talk about my daily progress.
 
+## August 26, 2021
+
+Moving on to create the iOS target.
+
+At the time of writing his tutorial, the author explains how a `*.storyboard` file is needed for the first splash screen shown
+when the app loads. Without this file, the app will report as only having a size of 480x320.
+
+For iOS we can't pull in the whole SDL2 framework, so instead we have to generate static libraries specifically for iOS. And we
+want 2 of these: 1 for the simulator, 1 for the actual device. The author gives us a solution in bash on how to do this. But SDL
+has changed, and the project structure the author assumes isn't quite what it is today.
+
+So I found the `README-ios.md` within SDL. In there I found instructions on what build scripts to run from the CLI if I want the
+single fat file for both the simulator and the device. So I adapted my bash script, and now it looks nothing how the author
+intended.
+
 ## August 25, 2021
 
 Picking up trying to generate the XCode project. I am trying to identify where in the `project.yml` I have an error.
