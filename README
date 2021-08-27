@@ -7,12 +7,15 @@ This is an implementation of tetris that runs in the browser using emscripten an
 #### Development Features
 
 - [ ] Figure out how to put breakpoints with nvim
+- [ ] Add gtest
+  - [Resource 1](https://medium.com/swlh/c-project-structure-for-cmake-67d60135f6f5)
 
 #### Learn-checklist
 
 - [ ] Learn how to use cmake to do the bare minimum compilation
 - [ ] Learn how to use Vulkan
 - [ ] Learn how to bind javascript to webassembly
+- [ ] Learn how to create a static lib to speed up compilation
 
 ### System Requirements
 
