@@ -119,7 +119,7 @@ build_sdl_static_libraries\
     $IOS_BUILD_SCRIPT_NAME\
     $IOS_TARGET_LIB_PATH
 
-# this static library is a must
+# This static library is a must
 echo "Copying $SDL_LIB_PATH/$IOS_TARGET_LIB_PATH into Libs"
 cp "$SDL_LIB_PATH/$IOS_TARGET_LIB_PATH" Libs/.
 
@@ -127,11 +127,12 @@ if [ -f $SDL_LIB_PATH/$IOS_BUILD_LIB_DIR_NAME/lib/libSDL2main.a ]; then
     echo "Copying $SDL_LIB_PATH/$BUILD_ARTIFACTS_DIRECTORY/lib/libSDL2main.a into Libs"
     cp $SDL_LIB_PATH/$BUILD_ARTIFACTS_DIRECTORY/lib/libSDL2main.a Lib
 else
-    # The SDL ios docs say a libSDL2main.a should be generated. However, I haven't
-    # seen it yet.
+    # The SDL ios docs say a libSDL2main.a should be generated. 
+    # However, I haven't seen it yet.
     echo "[WARNING] $SDL_LIB_PATH/$BUILD_ARTIFACTS_DIRECTORY/lib/libSDL2main.a not found..."
 fi
 
 
-
-# Create our main SDL2 static library if necessary and put it into the Libs folder.
+# Invoke the xcodegen tool to create our project file.
+echo "Generating Xcode project"
+xcodegen generate
