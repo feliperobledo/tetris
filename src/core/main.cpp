@@ -1,9 +1,12 @@
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl3.h>
-
+#include "./include/graphics-wrapper.hpp"
 #include <iostream>
 #include <SDL.h>
+
 #include "./include/test.hpp"
+
+const u_int32_t WINDOW_WIDTH = 640;
+const u_int32_t WINDOW_HEIGHT = 420;
 
 void render(SDL_Window* window, const SDL_GLContext& context)
 {
@@ -48,6 +51,14 @@ bool runMainLoop(SDL_Window* window, const SDL_GLContext& context)
     return true;
 }
 
+void ClearDepth(float d) {
+#if TARGET_OS_IPHONE
+  glClearDepthf(1.0f);
+#else
+  glClearDepth(1.0f);
+#endif
+}
+
 void runApplication() {
   u_int32_t width{640};
   u_int32_t height{320};
@@ -56,14 +67,14 @@ void runApplication() {
   SDL_Window* window{SDL_CreateWindow(
       "Tetris",
       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-      width, height,
+      WINDOW_WIDTH, WINDOW_HEIGHT,
       SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI)};
 
   // Obtain the OpenGL Context based on our window
   SDL_GLContext context{SDL_GL_CreateContext(window)};
 
   //Setup some basic global OpenGL state
-  glClearDepth(1.0f);
+  ClearDepth(1.0f);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
   glEnable(GL_CULL_FACE);
@@ -89,7 +100,6 @@ int main(int, char *[]) {
   } else {
     std::cout << "Failed to initialise SDL!" << std::endl;
   }
-
 
   return 0;
 }
