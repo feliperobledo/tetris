@@ -1,0 +1,5 @@
+//:configuration = Debug
+VALID_ARCHS[sdk=iphonesimulator*] = i386
+
+//:configuration = Release
+VALID_ARCHS[sdk=iphonesimulator*] = i386

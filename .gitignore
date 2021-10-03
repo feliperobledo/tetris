@@ -30,3 +30,4 @@ Source
 
 # We don't want artifacts from ios
 targets/ios/Libs/*
+targets/ios/build/*

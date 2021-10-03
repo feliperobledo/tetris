@@ -7,7 +7,7 @@ options:
   indentWidth: 4
   tabWidth: 4
   deploymentTarget:
-    iOS: "9.0"
+    iOS: "10.0"
 
 settings:
   CLANG_CXX_LANGUAGE_STANDARD: c++17
@@ -19,6 +19,9 @@ targets:
   Tetris:
     type: application
     platform: iOS
+    configFiles:
+      Debug: Tetris.xcconfig
+      Release: Tetris.xcconfig
     info:
       path: Generated/Info.plist
       properties:
@@ -31,11 +34,11 @@ targets:
     entitlements:
       path: Generated/app.entitlements
     sources:
-      - ../../src/core
+      - ../../src/ios-core/
       - LaunchScreen.storyboard
     settings:
       HEADER_SEARCH_PATHS:
-        - ../../src/providers/include/SDL2/Headers
+        - ../../src/providers/lib/SDL2/include
       LIBRARY_SEARCH_PATHS:
         - $(inherited)
         - $(PROJECT_DIR)
