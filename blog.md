@@ -2,6 +2,55 @@
 
 This space is intended for me to talk about my daily progress.
 
+## September 18, 2021
+
+These are the current sdk's I can use:
+
+```
+~ xcrun xcodebuild -showsdks
+
+iOS SDKs:
+iOS 14.5 -sdk iphoneos14.5
+
+iOS Simulator SDKs:
+Simulator - iOS 14.5 -sdk iphonesimulator14.5
+
+macOS SDKs:
+DriverKit 20.4 -sdk driverkit.macosx20.4
+macOS 11.3 -sdk macosx11.3
+
+tvOS SDKs:
+tvOS 14.5 -sdk appletvos14.5
+
+tvOS Simulator SDKs:
+Simulator - tvOS 14.5 -sdk appletvsimulator14.5
+
+watchOS SDKs:
+watchOS 7.4 -sdk watchos7.4
+
+watchOS Simulator SDKs:
+Simulator - watchOS 7.4 -sdk watchsimulator7.4
+```
+
+I can also show the XCode build settings with:
+
+```
+xcodebuild -showBuildSettings [-project name.xcodeproj | [-workspace name.xcworkspace -scheme schemename]]
+
+xcodebuild -showdestinations [-project name.xcodeproj | [-workspace name.xcworkspace -scheme schemename]]
+```
+
+I found [this](https://github.com/yonaskolb/XcodeGen/issues/508) github issue for xcodegen that shows how to set some build settings for xcode.
+
+## September 13, 2021
+
+Still trying to debug the iOS issues. I found [this](https://jstookey.com/building-sdl2-projects-for-ios-with-xcode-11/) other tutorial of
+iOS I can try.
+
+## September 10, 2021
+
+Tried copying some objective-c only source code and running the ios app with that. No dice.
+
 ## August 26, 2021
 
 Moving on to create the iOS target.
